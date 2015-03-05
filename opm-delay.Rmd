@@ -5,10 +5,12 @@ date: "03/05/2015"
 output: html_document
 ---
 
-From government workers to bartenders, much of Washington depends on the status of the Federal Government. This chart will help the district know when to look for that all important email. Set your alarm, folks!
+From government workers to bartenders, much of Washington depends on the status of the Federal Government. This chart will help the district know when to look for that all important email. So stay up past 10PM and then set your alarm for 4am, folks!
 
 ```{r}
+
 #set libraries
+
 library(ggplot2)
 library(dplyr)
 library(knitr)
@@ -17,13 +19,14 @@ library(stringr)
 #Data comes from @zubakskees gist: https://gist.github.com/chriszs/490d9930ac0421f84857 - slightly modified by me. 12-hr changed to 24 hour times.
 opm <- read.csv("opmoperatingstatus.csv", stringsAsFactors=FALSE)
 
+#change date format to POSIXct
 opm$ptime <- strptime(opm$time, format = "%H:%M")
 
-opmtime
-
+#plot the data
 qplot(ptime, status, data=opm)
 
-opmplot <- ggplot(data=opm, aes(ptime, year)) + geom_point(aes(color=status)) +scale_colour_manual(values=c("red", "yellow", "green"))
+#plot the data with color!
+opmplot <- ggplot(data=opm, aes(ptime, year)) + geom_point(aes(color=status)) + scale_colour_manual(values=c("red", "yellow", "green"))
 opmplot
 
 
@@ -33,10 +36,4 @@ opmplot
 
 ```
 
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Need to fix the Y axis. Also it's very ugly.
